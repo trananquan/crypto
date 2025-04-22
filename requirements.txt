@@ -5,5 +5,5 @@ matplotlib
 datetime
 google
 prophet
-sklearn
+scikit-learn
 numpy
