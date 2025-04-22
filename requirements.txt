@@ -3,7 +3,8 @@ yfinance
 pandas
 matplotlib
 datetime
-google
 prophet
 scikit-learn
 numpy
+plotly
+google-generativeai
