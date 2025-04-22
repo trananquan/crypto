@@ -2,7 +2,6 @@ streamlit
 yfinance
 pandas
 matplotlib
-pyplot
 datetime
 google
 prophet
