@@ -49,8 +49,8 @@ symbol = st.selectbox("Chọn mã Crypto (vd: BTC-USD)",
                     index=0  # Default selection is BTC-USD
 )
 
-start_date = st.date_input("Start Date", value=date(2024, 1, 1))
-end_date = st.date_input("End Date", value=date.today())
+start_date = st.date_input("Ngày đầu", value=date(2024, 1, 1))
+end_date = st.date_input("Ngày cuối", value=date.today())
 
 if symbol:
     # Fetch cryptocurrency data
