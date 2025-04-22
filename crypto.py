@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import date, timedelta
 import google.generativeai as genai
-from pmdarima import auto_arima
 from prophet import Prophet
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
@@ -67,13 +66,13 @@ if symbol:
 st.subheader("📈 Chỉ báo kỹ thuật")
 col1, col2 = st.columns(2)  # Create two columns
 with col1:
-     sma20 = st.checkbox("Show SMA 20")
-     sma50 = st.checkbox("Show SMA 50")
-     macd_checkbox = st.checkbox("Show MACD")
+     sma20 = st.checkbox("Đường SMA 20")
+     sma50 = st.checkbox("Đường SMA 50")
+     macd_checkbox = st.checkbox("Chỉ báo MACD")
 with col2:
-     ema20 = st.checkbox("Show EMA 20")
-     bbands = st.checkbox("Show Bollinger Bands")
-     rsi_checkbox = st.checkbox("Show RSI")
+     ema20 = st.checkbox("Đường EMA 20")
+     bbands = st.checkbox("Dải Bollinger Bands")
+     rsi_checkbox = st.checkbox("Chỉ báo RSI")
 # Button to show chart
 if st.button("Xem biểu đồ"):
     # Download data
