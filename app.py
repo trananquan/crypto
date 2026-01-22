@@ -37,7 +37,7 @@ st.markdown(
 # Page setup
 st.markdown(
     """
-    <h1 style='color: darkblue;'>📊 Phân tích và Dự báo giá Crypto bằng thuật toán AI- Máy học</h1>
+    <h1 style='color: darkblue;'>📊 Phân tích và Dự báo giá Crypto bằng thuật toán Máy học</h1>
     """,
     unsafe_allow_html=True
 )
@@ -294,4 +294,5 @@ if st.button("Dự đoán giá Crypto"):
             plt.legend()
             plt.grid(True)
             st.pyplot(plt)
+
 
