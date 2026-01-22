@@ -3,7 +3,6 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import date, timedelta
-import google.generativeai as genai
 from prophet import Prophet
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
@@ -154,40 +153,6 @@ if st.button("Xem biểu đồ"):
             ax_rsi.grid(True)
             st.pyplot(fig_rsi)
 
-# Function to get buy/sell recommendation from Gemini API
-def get_gemini_recommendation(symbol, summary):
-    """
-    Fetch buy/sell recommendation from Gemini AI based on the summary of the last 30 days.
-    """
-    # Set the Google Generative AI API key (authentication)
-    API_KEY = "AIzaSyAD5-tRTbhtr17baOAVq307Fguv5oa49hY"
-
-    # Authenticate with Google Generative AI
-    genai.configure(api_key=API_KEY)
-
-    # Define the generative model
-    model = genai.GenerativeModel('gemini-2.0-flash')
-
-    # Create a prompt for the AI model
-    prompt = (
-        f"Cho mã cổ phiếu '{symbol}' và tổng kết giá cổ phiếu trong 30 ngày gần nhất:\n"
-        f"- Giá trung bình: {summary['Average Price']:.2f}\n"
-        f"- Giá cao nhất: {summary['Highest Price']:.2f}\n"
-        f"- Giá thấp nhất: {summary['Lowest Price']:.2f}\n"
-        f"- Giá gần nhất: {summary['Latest Price']:.2f}\n"
-        "Đưa ra lời khuyên mua, bán hay giữ cổ phiếu này trong 3 ngày tới, trong trung hạn và trong dài hạn."
-        "Giải thích lý do đằng sau những lời khuyên."
-    )
-
-    # Generate a response from the AI model
-    try:
-        response = model.generate_content(prompt)
-        recommendation = response.text.strip()
-    except Exception as e:
-        recommendation = f"Error fetching recommendation: {str(e)}"
-
-    return recommendation
-
 
 def summarize_timeline_and_recommend(data, symbol):
     """
@@ -215,32 +180,6 @@ def summarize_timeline_and_recommend(data, symbol):
     summary["Recommendation"] = recommendation
 
     return summary
-
-
-# Display summary and recommendation
-st.write()
-st.subheader("📈Lời khuyên từ AI về đầu tư cho mã cổ phiếu")
-
-# Button to fetch recommendation
-if st.button("Lời khuyên AI"):
-    data = yf.download(symbol, start=start_date, end=end_date)
-    if symbol and not data.empty:
-        # Summarize data and get recommendation
-        summary = summarize_timeline_and_recommend(data, symbol)
-
-        # Display summary
-        st.write(f"Tổng quan giá cổ phiếu {symbol} trong 30 ngày gần nhất:")
-        st.write(f"- Giá trung bình: {summary['Average Price']:.2f}")
-        st.write(f"- Giá cao nhất: {summary['Highest Price']:.2f}")
-        st.write(f"- Giá thấp nhất: {summary['Lowest Price']:.2f}")
-        st.write(f"- Giá gần nhất: {summary['Latest Price']:.2f}")
-        st.markdown(
-            f"<h6>Lời khuyên từ AI: {summary['Recommendation']}</h6>",
-            unsafe_allow_html=True
-        )
-    else:
-        st.write("Vui lòng nhập mã cổ phiếu và đảm bảo dữ liệu không trống.")
-
 
 # Checkbox for prediction models
 st.write()
@@ -355,3 +294,4 @@ if st.button("Dự đoán giá Crypto"):
             plt.legend()
             plt.grid(True)
             st.pyplot(plt)
+
